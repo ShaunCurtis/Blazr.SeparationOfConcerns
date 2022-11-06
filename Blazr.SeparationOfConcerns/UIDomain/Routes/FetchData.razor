@@ -1,8 +1,9 @@
-﻿@page "/fetchdata"
+﻿@namespace Blazr.SeparationOfConcerns.UI
+@page "/fetchdata"
 
 <PageTitle>Weather forecast</PageTitle>
 
-@using Blazr.SeparationOfConcerns.Data
+@using Blazr.SeparationOfConcerns.Core
 @inject WeatherForecastService ForecastService
 
 <h1>Weather forecast</h1>
