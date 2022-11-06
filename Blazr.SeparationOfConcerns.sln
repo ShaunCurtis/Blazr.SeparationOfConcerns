@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32811.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blazr.SeparationOfConcerns", "Blazr.SeparationOfConcerns\Blazr.SeparationOfConcerns.csproj", "{6FB4BDA6-889C-46A2-B0C5-436527172B8B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C9DD23F1-FB9A-440B-AEAC-28662ECD5D2C}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6FB4BDA6-889C-46A2-B0C5-436527172B8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FB4BDA6-889C-46A2-B0C5-436527172B8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FB4BDA6-889C-46A2-B0C5-436527172B8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FB4BDA6-889C-46A2-B0C5-436527172B8B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {44C7CC75-DDA3-43CD-922D-674B48088656}
+	EndGlobalSection
+EndGlobal
