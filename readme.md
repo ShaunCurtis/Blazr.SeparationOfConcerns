@@ -80,7 +80,7 @@ And the Counter route component:
 
 ## State
 
-So far so good, but we havn't solved the state problem.  How do we know when a value has changed?  Is our object dirty - different from the original - or clean - the same as the original.
+So far so good, but we haven't solved the state problem.  How do we know when a value has changed?  Is our object dirty - different from the original - or clean - the same as the original.
 
 First we define a record that represents our data (Dro = Data Record Object):
 
