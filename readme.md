@@ -1,4 +1,4 @@
-# Building Blazor Applications
+# Applying Separation of Concerns, SOLID and Patterns to your Blazor Application
 
 In any application it's all too easy to fall into the "Quick" solution trap.  What we forget is the "and Dirty" bit, which soon comes back to haunt us as we expand the functionality and scope of what we've coded.
 
@@ -187,7 +187,7 @@ A method to set the context to the current state used when the state is saved:
         => this.Load(AsRecord());
 ```
 
-#### Null Coalescing and Conditional Operators
+##### Null Coalescing and Conditional Operators
 
 The code above uses *Null Coalescing* and *Null Conditional* operators.  For those not fully conversant with the modern Null operators, the later versions of C# offer more concise language for dealing with null.  You no longer need to write `if (x == null) ....` very often. 
 
@@ -212,7 +212,7 @@ In our case `currentValue` is null - we wouldn't be doing the evaluation if it w
 You'll see this null checking language used throughout the code.
 
 
-### Abstracting Common Functionality
+### Abstracting Common Functionality into StateBase
 
 The above code provides a pattern that can be re-used.  We can abstract out most of the functionality into an abstract `StateBase` class.
 
@@ -348,7 +348,7 @@ We separate the data persistance out though an interface.  `CounterViewService` 
 
 Operatons are either:
 
-1. *Commands* - that change state.  A *CommandRequest* object defines what needs changing and a *CommandResult* object returns a status information  - normally Success/Failure and a message.
+1. *Commands* - that change state.  A *CommandRequest* object defines what needs changing and a *CommandResult* object returns status information  - normally Success/Failure and a message.
 
 2. *Queries* - request data: they don't change it.  A *QueryRequest* defines the data to get and a *QueryResult* contains the requested data and status information - normally Success/Failure and a message.
     
@@ -357,7 +357,7 @@ Request and result objects are defined as immutable records.
 
 ### Data Persistance
 
-In this application we are presisting data to Browser Local Storage.
+The application presists data to Browser Local Storage.
 
 Here's the `IDataService` implementation that uses the `ProtectedLocalStorage` package.  The code is self explanatory.
 
