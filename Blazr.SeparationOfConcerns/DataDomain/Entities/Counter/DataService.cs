@@ -1,4 +1,4 @@
-﻿namespace Blazr.SeparationOfConcerns.Core;
+﻿namespace Blazr.SeparationOfConcerns.Data;
 
 public class DataService : IDataService
 {
@@ -18,6 +18,8 @@ public class DataService : IDataService
 
     public async ValueTask<RecordQueryResult<TRecord>> ReadAsync<TRecord>(RecordQueryRequest<TRecord> request)
     {
+        // We need to cover the situation were the component calling this is in the initial page
+        // and Blazor server is trying to statically render the page
         try
         {
             var result = await _storage.GetAsync<TRecord>(request.StorageName);

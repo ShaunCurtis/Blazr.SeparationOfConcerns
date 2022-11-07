@@ -1,0 +1,19 @@
+﻿@namespace Blazr.SeparationOfConcerns.UI
+@inject CounterViewService Service
+@implements IDisposable
+
+<div class="bg-light border-dark p-3 m-3">
+    <h3>Counter Viewer</h3>
+    <div>Counter : @this.Service.StateContext.Counter</div>
+</div>
+
+@code {
+    protected override void OnInitialized()
+        => Service.StateContext.StateChanged += OnStateChanged;
+
+    private void OnStateChanged(object? sender, bool state)
+                => this.InvokeAsync(StateHasChanged);
+
+    public void Dispose()
+        => Service.StateContext.StateChanged += OnStateChanged;
+}

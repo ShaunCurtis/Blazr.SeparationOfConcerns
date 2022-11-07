@@ -5,27 +5,26 @@
 
 <PageTitle>Counter</PageTitle>
 
-<h1>Counter</h1>
+<CounterViewer />
 
-<p role="status">Current count: @this.Service.StateContext.Counter</p>
-
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<div class="p-3">
+    <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+</div>
 
 @code {
-    protected override void OnInitialized()
-        => this.Service.StateContext.StateChanged += this.OnStateChanged;
+    protected override async Task OnInitializedAsync()
+    {
+        //ensures the component had initially rendered before attempt to read browser data
+        await Task.Delay(1);
+        this.Service.StateContext.StateChanged += this.OnStateChanged;
+        await this.Service.GetCounterAsync();
+    }
 
     private async Task IncrementCount()
         => await this.Service.Increment();
 
     private void OnStateChanged(object? sender, bool isDirty)
         => this.StateHasChanged();
-
-    protected async override Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-            await this.Service.GetCounterAsync();
-    }
 
     public void Dispose()
         => this.Service.StateContext.StateChanged -= this.OnStateChanged;

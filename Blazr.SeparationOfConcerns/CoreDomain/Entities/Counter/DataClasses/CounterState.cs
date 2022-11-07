@@ -10,13 +10,15 @@ public class CounterState : StateBase<CounterDro>
         set => SetAndNotifyIfChanged(ref _counter, value, "Counter");
     }
     public CounterState(CounterDro record)
-        => this.Load(record);  
+        => this.Load(record);
 
     public void Load(CounterDro record)
     {
+        var stateChange = record != this.BaseRecord;
+
         this.BaseRecord = record with { };
         Counter = record.Counter;
-        this.NotifyStateMayHaveChanged(true);
+        this.NotifyStateMayHaveChanged(stateChange);
     }
 
     public override CounterDro AsRecord() => new(Counter: this.Counter);

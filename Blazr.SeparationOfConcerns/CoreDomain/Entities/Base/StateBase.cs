@@ -15,7 +15,7 @@ public abstract class StateBase<TRecord>
 
     private bool _wasDirty;
     public bool IsDirty 
-        => BaseRecord?.Equals(AsRecord()) 
+        => !BaseRecord?.Equals(AsRecord()) 
             ?? this.AsRecord() is not null;
 
     protected void SetAndNotifyIfChanged<TType>(ref TType? currentValue, TType? value, string fieldName)

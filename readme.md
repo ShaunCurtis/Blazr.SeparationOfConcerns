@@ -268,3 +268,62 @@ In this case we know `currentValue` is null - we wouldn't be doing the evaluatio
 
 You will see this coding style used throughout the code.
 
+## Data/State/UI Separation
+
+At this point we've build objects to represent the data and state of our countere data.  We now need to separate these from the component.  For this we define a *View* service.  The *View* is responsible for data management, the component/components are responsible for the presentation and user interaction with the data.
+
+We can define the `CounterViewService` like this.  It provides two methods to get and save the counter data for an undefined store.
+
+```csharp
+public class CounterViewService
+{
+    public readonly CounterState StateContext = new CounterState(new CounterDro(0));
+
+    private readonly IDataService _counterDataService;
+
+    public CounterViewService(IDataService counterDataService)
+        => _counterDataService = counterDataService;
+
+    public async Task GetCounterAsync()
+    {
+        var result = await _counterDataService.ReadAsync<CounterDro>(new RecordQueryRequest<CounterDro>("Counter"));
+        this.StateContext.Load(result.Record ?? new CounterDro(0));
+    }
+
+    public async Task SaveCounterAsync()
+    {
+        var request = new CommandRequest<CounterDro>(
+            StorageName: "Counter", 
+            Record: this.StateContext.AsRecord());
+
+        var result = await _counterDataService.SaveAsync<CounterDro>(request);
+    }
+
+    public async Task Increment()
+    {
+        StateContext.Counter++;
+        await SaveCounterAsync();
+    }
+}
+```
+
+The `IDataService` is defined as follows.  We'll look at the actual implementation shortly.
+
+```Csharp
+public interface IDataService
+{
+    public ValueTask<CommandResult> SaveAsync<TRecord>(CommandRequest<TRecord> request);
+    public ValueTask<RecordQueryResult<TRecord>> ReadAsync<TRecord>(RecordQueryRequest<TRecord> request);
+}
+```
+
+The class demonstrates some important concepts:
+
+1. Abstraction - we separate the data persistance out though an interface.  `CounterViewService` injects the `IDataService` defined in the service container.  It doesn't care if the implementation loaded is session base storage, `LocalStorage`, a SQL database or a remote store.
+2. CQS - Command/Query Separation.  Operatons are either:
+     1. *Commands* - that change state - defined by a *CommandRequests* that return a simple status response in a *CommandResult*.
+    2. *Queries* -that get data but don't change state - defined by a *QueryRequest* and return data and status in a *QueryResult*.
+    
+The request and result objects are records. 
+
+

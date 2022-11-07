@@ -22,6 +22,9 @@ public class CounterViewService
             Record: this.StateContext.AsRecord());
 
         var result = await _counterDataService.SaveAsync<CounterDro>(request);
+
+        if (result.Successful)
+            this.StateContext.Update();
     }
 
     public async Task Increment()
