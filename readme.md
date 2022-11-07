@@ -472,8 +472,12 @@ And the new Counter route:
 
 ## Summary
 
-To be written
+This implementation demonstrates:
 
+1. How to separate out functionality into single purpose objects.
+2. How to separate data and state from the UI.
+3. How to use abstraction to decouple Data from the core application code.
+4. How to build a simple state persistance implementation.
 
 ## Appendix
 
