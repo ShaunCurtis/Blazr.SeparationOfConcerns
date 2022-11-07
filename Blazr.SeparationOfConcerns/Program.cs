@@ -7,7 +7,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddScoped<CounterViewService>();
-builder.Services.AddScoped<IDataService, DataService>();
+builder.Services.AddScoped<IDataService, LocalStorageDataService>();
+builder.Services.AddScoped<CounterService>();
 
 var app = builder.Build();
 

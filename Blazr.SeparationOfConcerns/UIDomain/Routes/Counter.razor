@@ -1,31 +1,18 @@
 ﻿@namespace Blazr.SeparationOfConcerns.UI
 @page "/counter"
-@implements IDisposable
 @inject CounterViewService Service
 
 <PageTitle>Counter</PageTitle>
 
 <CounterViewer />
 
-<div class="p-3">
-    <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-</div>
+<CounterEditor />
 
 @code {
     protected override async Task OnInitializedAsync()
     {
         //ensures the component had initially rendered before attempt to read browser data
         await Task.Delay(1);
-        this.Service.StateContext.StateChanged += this.OnStateChanged;
         await this.Service.GetCounterAsync();
     }
-
-    private async Task IncrementCount()
-        => await this.Service.Increment();
-
-    private void OnStateChanged(object? sender, bool isDirty)
-        => this.StateHasChanged();
-
-    public void Dispose()
-        => this.Service.StateContext.StateChanged -= this.OnStateChanged;
 }

@@ -7,20 +7,23 @@ public abstract class StateBase<TRecord>
     public event EventHandler<string>? FieldChanged;
     public event EventHandler<bool>? StateChanged;
 
+    public StateBase(TRecord record)
+        => this.Load(record);
+
     public abstract TRecord AsRecord();
 
     public abstract void Reset();
 
     public abstract void Update();
 
-    private bool _wasDirty;
+    public abstract void Load(TRecord record);
+
     public bool IsDirty 
         => !BaseRecord?.Equals(AsRecord()) 
             ?? this.AsRecord() is not null;
 
     protected void SetAndNotifyIfChanged<TType>(ref TType? currentValue, TType? value, string fieldName)
     {
-
         if (!currentValue?.Equals(value) ?? value is not null)
         {
             currentValue = value;
@@ -32,13 +35,6 @@ public abstract class StateBase<TRecord>
     protected void NotifyFieldChanged(string fieldName)
         => FieldChanged?.Invoke(this, fieldName);
 
-    protected void NotifyStateMayHaveChanged(bool force = false)
-    {
-        var isDirty = this.IsDirty;
-        if (_wasDirty != isDirty || force)
-        {
-            _wasDirty = isDirty;
-            this.StateChanged?.Invoke(this, this.IsDirty);
-        }
-    }
+    protected void NotifyStateMayHaveChanged()
+        =>  this.StateChanged?.Invoke(this, this.IsDirty);
 }

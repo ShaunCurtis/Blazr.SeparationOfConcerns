@@ -1,10 +1,10 @@
 ﻿namespace Blazr.SeparationOfConcerns.Data;
 
-public class DataService : IDataService
+public class LocalStorageDataService : IDataService
 {
     private readonly ProtectedLocalStorage _storage;
 
-    public DataService(ProtectedLocalStorage storage)
+    public LocalStorageDataService(ProtectedLocalStorage storage)
         => _storage = storage;
 
     public async ValueTask<CommandResult> SaveAsync<TRecord>(CommandRequest<TRecord> request)

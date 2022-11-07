@@ -1,19 +1,16 @@
 ﻿@namespace Blazr.SeparationOfConcerns.UI
-@page "/counter1"
+@page "/countersod"
+@inject CounterService Service
 
 <PageTitle>Counter</PageTitle>
 
 <h1>Counter</h1>
 
-<p role="status">Current count: @currentCount</p>
+<p role="status">Current count: @Service.Data.Counter</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
-    private int currentCount = 0;
-
     private void IncrementCount()
-    {
-        currentCount++;
-    }
+        => Service.Increment();
 }

@@ -11,5 +11,4 @@ public record RecordQueryResult<TRecord>
 
     public static RecordQueryResult<TRecord> Failure(string message)
         => new RecordQueryResult<TRecord> { Successful = false };
-
 }

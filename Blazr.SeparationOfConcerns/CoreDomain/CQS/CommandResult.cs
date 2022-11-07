@@ -10,5 +10,4 @@ public record CommandResult
 
     public static CommandResult Failure(string message)
         => new CommandResult { Successful = false };
-
 }

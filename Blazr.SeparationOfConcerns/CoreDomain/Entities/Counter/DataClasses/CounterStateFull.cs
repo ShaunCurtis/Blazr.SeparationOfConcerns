@@ -1,6 +1,6 @@
 ﻿namespace Blazr.SeparationOfConcerns.Core;
 
-public class CounterState1
+public class CounterStateFull
 {
     private CounterDro BaseRecord = default!;
 
@@ -18,14 +18,14 @@ public class CounterState1
     public event EventHandler<string>? FieldChanged;
     public event EventHandler<bool>? StateChanged;
     
-    public CounterState1(CounterDro record)
+    public CounterStateFull(CounterDro record)
         => this.Load(record);
 
     public void Load(CounterDro record)
     {
         this.BaseRecord = record with { };
         Counter = record.Counter;
-        this.NotifyStateMayHaveChanged(true);
+        this.NotifyStateMayHaveChanged();
     }
 
     public void Reset()
@@ -34,7 +34,6 @@ public class CounterState1
     public void Update()
         => this.Load(AsRecord());
 
-    private bool _wasDirty;
     public bool IsDirty
         => BaseRecord?.Equals(AsRecord())
             ?? this.AsRecord() is not null;
@@ -52,13 +51,6 @@ public class CounterState1
     protected void NotifyFieldChanged(string fieldName)
         => FieldChanged?.Invoke(this, fieldName);
 
-    protected void NotifyStateMayHaveChanged(bool force = false)
-    {
-        var isDirty = this.IsDirty;
-        if (_wasDirty != isDirty || force)
-        {
-            _wasDirty = isDirty;
-            this.StateChanged?.Invoke(this, this.IsDirty);
-        }
-    }
+    protected void NotifyStateMayHaveChanged()
+        =>  this.StateChanged?.Invoke(this, this.IsDirty);
 }

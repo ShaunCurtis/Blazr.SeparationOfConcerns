@@ -1,0 +1,12 @@
+﻿@namespace Blazr.SeparationOfConcerns.UI
+@inject CounterViewService Service
+
+<div class="bg-light p-3 m-3">
+    <h3>Counter Editor</h3>
+    <button class="btn btn-primary" @onclick=this.IncrementCount>Increment Counter</button>
+</div>
+
+@code {
+    private async Task IncrementCount()
+        => await this.Service.Increment();
+}
